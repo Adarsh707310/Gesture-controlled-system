@@ -1,15 +1,16 @@
-#!/usr/bin/env python
-# coding: utf-8
+#ADARSH JAIN
+#B17ME002
 
-# In[14]:
-
-
-#importing libraries
+#libraries required 
+import math as mh
 import numpy as np 
 import matplotlib.pyplot as plt
-import math as mt
 
-#Given
+#saturation pressure(Pa) at a given temperature(degree C)
+def p_s(t):
+    return(mh.exp(77.3450+0.0057*(t+273.15)-7235/(t+273.15))/pow(t+273.15,8.2))
+
+#Data given
 specific_volume= [.8,.85,.9,.95]
 relative_humidity= np.arange(start=0.1, stop=1.1, step=0.1)
 DBT= np.arange(start=5, stop=55, step=5)
@@ -22,9 +23,6 @@ p=101.325 #Atmospheric pressure in KPa
 x=[]
 y=[]
 
-#function to give the saturation pressure(Pa) at a given temperature(degree C)
-def p_s(t):
-    return(mt.exp(77.3450+0.0057*(t+273.15)-7235/(t+273.15))/pow(t+273.15,8.2))
 #Plotting constant relative humidity lines
 f=1
 for i in range(0,len(relative_humidity)):
@@ -64,7 +62,6 @@ for i in range(0,len(temp)):
 h1=np.array(h1)
 
 
-
 x.clear()
 y.clear()
 for i in range(0,len(h1)):
@@ -89,7 +86,6 @@ for i in range(0,len(h1)):
 plt.text(38,.003,'10%')
 plt.text(37,.0065,'20%')
 f=1
-
 
 #plotting constant specific volume(m^3/Kg(da))
 DBT2=np.arange(start=5, stop=52, step=.001)
@@ -127,16 +123,3 @@ plt.xlabel('Dry Bulb Temperature (degree Celcius)')
 plt.ylabel('Specific Humidity (kg/kg(da))')
 plt.legend(loc='upper center',bbox_to_anchor=(0.55,-0.2),shadow='True',ncol=2)
 plt.show()
-
-
-# In[7]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
