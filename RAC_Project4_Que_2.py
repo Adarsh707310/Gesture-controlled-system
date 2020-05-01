@@ -1,53 +1,12 @@
-#importing libraries
-import numpy as np
+#ADARSH JAIN
+#B17ME002
+
+#libraries required for ploting purposes and calculations
+import math as mh
 import matplotlib.pyplot as plt
-import math as mt
+import numpy as np
 
-#Fresh air
-t1=43+273
-t1w=27.5+273
-#Room conditions
-t2=25+273
-phi2=.5
-ti=t2
-
-#using psychometric charts
-w1=16.911*.001 
-w2=9.921*.001
-wi=w2
-h1=84.532
-hi=50.407
-
-#mixing conditions. m1/m2=1/4
-wm=(w1+4*w2)/5
-tm=(t1*w2- t2*w1 -wm*(t1-t2))/(w2-w1) 
-#using these, we get wm=11.31 and tm=28.6
-
-#some constants
-qs=20
-ql=5
-r=qs/ql
-c1=.0204
-c2=50
-c=c1/c2
-d=r/c
-Ra=287.058
-P=101325
-
-#phi=1 line
-def p_s(t):
-    return(mt.exp(77.3450+0.0057*(t+273.15)-7235/(t+273.15))/pow(t+273.15,8.2))
-P=101325
-DBT= np.arange(start=5, stop=100, step=.1)
-x=[]
-y=[]
-for j in range(0,len(DBT)):
-    w=.622/( (P/(p_s(DBT[j]))) -1)
-    x.append(DBT[j])
-    y.append(w)
-
-
-#function to find intersection point of phi=1 curve and line
+#location intersection point of phi=1 curve and line
 def f(k1,k2):
     xx=[]
     yy=[]
@@ -65,6 +24,52 @@ def f(k1,k2):
         return DBT[idx[0]]+273
     else:
         return -1
+
+#phi=1 line
+def p_s(t):
+    return(mh.exp(77.3450+0.0057*(t+273.15)-7235/(t+273.15))/pow(t+273.15,8.2))
+    
+#Given datas
+#For fresh air
+t1=43+273
+t1w=27.5+273
+#For room conditions
+t2=25+273
+phi2=.5
+ti=t2
+
+#suitable data form psychometric charts
+w1=16.911*.001 
+w2=9.921*.001
+wi=w2
+h1=84.532
+hi=50.407
+
+#mixing conditions. m1/m2=1/4
+wm=(w1+4*w2)/5
+tm=(t1*w2- t2*w1 -wm*(t1-t2))/(w2-w1) 
+#And, we get wm=11.31 and tm=28.6
+
+#required conditions
+c1=.0204
+c2=50
+c=c1/c2
+d=r/c
+Ra=287.058
+P=101325
+qs=20
+ql=5
+r=qs/ql
+
+P=101325
+DBT= np.arange(start=5, stop=100, step=.1)
+x=[]
+y=[]
+for j in range(0,len(DBT)):
+    w=.622/( (P/(p_s(DBT[j]))) -1)
+    x.append(DBT[j])
+    y.append(w)
+
 
 tca=[]
 ts=[]
@@ -113,4 +118,3 @@ ax.set_title('Total load(KW) vs bypass factor')
 fig, ax = plt.subplots()
 ax.plot(xaxi,vflow)
 ax.set_title('Volume flow rate(CMM)  vs bypass factor')
-
